@@ -12,8 +12,6 @@ namespace BEV.Filtering.Remote
 {
     public partial class FilterForm_Form2 : Form
     {
-       
-        
 
         public static int _ZIndex;
         //private BindingSource Filtering_TempBinding_Local_1;
@@ -38,8 +36,7 @@ namespace BEV.Filtering.Remote
             {
                
                 tabControl1.SelectedIndex = _ZIndex;
-               //////// Filtering_TempBinding_Local_1 = new BindingSource();
-               //////// Filtering_TempBinding_Local_2 = new BindingSource();
+               
                 //remote
                 Filtering_TempBinding_Remote_1 = new BindingSource();
                 Filtering_TempBinding_Remote_2 = new BindingSource();
@@ -51,20 +48,10 @@ namespace BEV.Filtering.Remote
                 DataTable TempTable_For_Tab3 = Master_Value.MasterValueClass.table_Remoting.Copy();
 
                 //remote
-               
- 
-
-                ////////DataTable TempTable_For_Tab1 = Master_Value.MasterValueClass.table_Local.Copy();
-                ////////DataTable TempTable_For_Tab2 = Master_Value.MasterValueClass.table_Local.Copy();
-                ////////DataTable TempTable_For_Tab3 = Master_Value.MasterValueClass.table_Local.Copy();
-
-                //remote
                 Filtering_TempBinding_Remote_1.DataSource = TempTable_For_Tab1;
                 Filtering_TempBinding_Remote_2.DataSource = TempTable_For_Tab2;
                 Filtering_TempBinding_Remote_3.DataSource = TempTable_For_Tab3;
                 Filtering_TempBinding_Remote_3_1.DataSource = Master_Value.Reloading_EventsID.table_;
-
-                //dataGridView2.DataSource = Filtering_TempBinding_Remote_2;
 
                 dataGridView5.DataSource = Filtering_TempBinding_Remote_3_1;
                 dataGridView5.Refresh();
@@ -83,69 +70,7 @@ namespace BEV.Filtering.Remote
         private void button3_Click_1(object sender, EventArgs e)
         {
             
-            //DataView view = (DataView)dataGrid1.DataSource;
-
-            //// Set the filter to display only those rows that were modified.
-            //view.RowStateFilter = DataViewRowState.ModifiedCurrent;
-
-            //// Change the value of the CompanyName column for each modified row.
-            //foreach (DataRowView rowView in view)
-            //{
-            //    Console.WriteLine(rowView.Row[2]);
-            //}
-
-
-
-            //try
-            //{
-            //    int _i = Filtering_TempBinding_Local_1.Count;
-            //    //Array_to_Save_1 = new object[_i];
-            //    System.Data.DataRowView g;
-            //    for (int i = 0; i <= _i; i++)
-            //    {
-            //        //                    Filtering_TempBinding_Local_1.CopyTo(Array_to_Save_1, i);
-            //        //      g = ((System.Data.DataRowView)Filtering_TempBinding_Local_1.List[i]);
-            //        g = ((System.Data.DataRowView)Master_Value.MasterValueClass.LocalBindingSource.List[i]);
-            //        MessageBox.Show(g.Row[2].ToString());
-
-
-            //    }
-            //}
-            //catch (Exception err)
-            //{
-
-
-            //}
-
-
-            //  BindingSource f = new BindingSource();
-
-            //  System.Collections.ArrayList fruits = new System.Collections.ArrayList();
-            //fruits.Add("apple");
-            //fruits.Add("mango");
-
-            //          IEnumerable<EventLogRecord> query =
-            //                fruits.Cast<EventLogRecord>().Select(fruit => fruit);
-            //IEnumerable<EventLogRecord> query =
-            //                Filtering_TempBinding_Local_1.List.Cast<EventLogRecord>().Select(Filtering_TempBinding_Local_1.List[ => fruit);
-
-            //foreach (EventLogRecord fruit in query)
-            //    Console.WriteLine(fruit.RecordId);
-
-            // This code produces the following output:
-            //
-            // apple
-            // mango
-
-
-
-
-            //// System.IO.FileInfo f = new System.IO.FileInfo("test.txt");
-            ////// System.IO.StreamWriter ff = new System.IO.StreamWriter(
-            //// foreach (string item in Array_to_Save_1)
-            //// {
-
-            //// }
+          
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -340,8 +265,7 @@ namespace BEV.Filtering.Remote
                 if (Current_Logname.ToUpper() == "SECURITY")
                 {
                     int _Get_Set_EventID = Convert.ToInt32(((System.Data.DataRowView)Filtering_TempBinding_Remote_3_1.List[e.RowIndex]).Row[0]);
-                    // int _Get_Set_LevelID = Convert.ToInt32(((System.Data.DataRowView)Filtering_TempBinding_Remote_3_1.List[e.RowIndex]).Row[1]);
-                    // string Temps = "(EventID = " + _Get_Set_EventID.ToString() + " )" + " AND " + "( Level = " + _Get_Set_LevelID + " )";
+ 
                     string Temps = "EventID = " + _Get_Set_EventID.ToString();
                     Filtering_TempBinding_Remote_3.Filter = Temps;
                     dataGridView4.DataSource = Filtering_TempBinding_Remote_3;
@@ -374,7 +298,6 @@ namespace BEV.Filtering.Remote
                 if (Current_Logname.ToUpper() == "SECURITY")
                 {
                     int _Get_Set_EventID = Convert.ToInt32(((System.Data.DataRowView)Filtering_TempBinding_Remote_3_1.List[dataGridView5.CurrentRow.Index]).Row[0]);
-                    // int _Get_Set_LevelID = Convert.ToInt32(((System.Data.DataRowView)Filtering_TempBinding_Remote_3_1.List[dataGridView5.CurrentRow.Index]).Row[1]);
                     string Temps = "EventID = " + _Get_Set_EventID.ToString();
                     // string Temps = "(EventID = " + _Get_Set_EventID.ToString() + " )" + " AND " + "( Level = " + _Get_Set_LevelID + " )";
                     Filtering_TempBinding_Remote_3.Filter = Temps;
@@ -424,10 +347,7 @@ namespace BEV.Filtering.Remote
                 try
                 {
 
-                    //int _Get_Set_EventIndex = Convert.ToInt32(((System.Data.DataRowView)Filtering_TempBinding_Remote_1.List[e.RowIndex]).Row[0]);
-                    //CastObject = (EventRecord)Master_Value.MasterValueClass.RemoteBindingSource[_Get_Set_EventIndex - 1];
-                    //string msg = CastObject.FormatDescription();
-                    //richTextBox_TypeMsg.Text = msg;
+                  
                     richTextBox_TypeMsg.Text = "";
                     richTextBox_TypeMsg.Text = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
                 }
@@ -479,6 +399,16 @@ namespace BEV.Filtering.Remote
         {
             richTextBox2.Text = "";
             richTextBox2.Text = dataGridView2.Rows[e.RowIndex].Cells[3].Value.ToString();
+        }
+
+        private void Button9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Button6_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

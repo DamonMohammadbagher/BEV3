@@ -519,6 +519,7 @@
             this.button6.TabIndex = 3;
             this.button6.Text = "Save";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.Button6_Click);
             // 
             // button5
             // 
@@ -833,6 +834,7 @@
             this.button9.TabIndex = 10;
             this.button9.Text = "Save";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.Button9_Click);
             // 
             // button10
             // 
