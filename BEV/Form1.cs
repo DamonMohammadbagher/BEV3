@@ -1345,7 +1345,7 @@ namespace BEV
                 F1._Thread.Abort();
 
             if (F2._Thread.IsAlive)
-                F1._Thread.Abort();
+                F2._Thread.Abort();
         }
 
 
