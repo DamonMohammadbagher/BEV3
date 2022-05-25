@@ -114,51 +114,32 @@ namespace BEV.Filtering.Local
 
         private void _Save() 
         {
-           
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Title = "Save Event" + label1.Text + "  " + label5.Text;
-            
-            saveFileDialog1.Filter = "txt files (*.txt)|*.txt";
-            saveFileDialog1.FilterIndex = 1;
-            saveFileDialog1.RestoreDirectory = true;
+     
             try
             {
                
-                DialogResult Result = saveFileDialog1.ShowDialog();
-                if (Result == DialogResult.OK) 
-                {
-                    if (saveFileDialog1.FilterIndex == 1) 
+              
+                    using (StreamWriter sw = new StreamWriter(label1.Text.Replace(':', '_').ToString().Replace(' ','_').ToString() + ".txt"))
                     {
-                        
-                        using (StreamWriter sw = new StreamWriter(saveFileDialog1.FileName))
-                        {
-                            // Add some text to the file.
-                            sw.WriteLine("This Event Saved:" + System.DateTime.Now.ToString() + "\n");
-                            sw.WriteLine(label1.Text);
-                            sw.WriteLine("--------------Other Properties------------");
-                            sw.WriteLine(label2.Text);
-                            sw.WriteLine(label3.Text);
-                            sw.WriteLine(label4.Text);
-                            sw.WriteLine(label5.Text);
-                            sw.WriteLine(label6.Text);
-                            sw.WriteLine(label7.Text);
-                            sw.WriteLine(label8.Text);
-                            sw.WriteLine(label9.Text);
-                            sw.WriteLine(label10.Text);
-                            sw.WriteLine(label11.Text);
-                            sw.WriteLine("-----------------Message-------------------");                            
-                            sw.WriteLine(richTextBox1.Text);
-                            sw.WriteLine("-------------------------------------------");
-                          
-                        }
-
-                        
-
+                        // Add some text to the file.
+                        sw.WriteLine("This Event Saved:" + System.DateTime.Now.ToString() + "\n");
+                        sw.WriteLine(label1.Text);
+                        sw.WriteLine("--------------Other Properties------------");
+                        sw.WriteLine(label2.Text);
+                        sw.WriteLine(label3.Text);
+                        sw.WriteLine(label4.Text);
+                        sw.WriteLine(label5.Text);
+                        sw.WriteLine(label6.Text);
+                        sw.WriteLine(label7.Text);
+                        sw.WriteLine(label8.Text);
+                        sw.WriteLine(label9.Text);
+                        sw.WriteLine(label10.Text);
+                        sw.WriteLine(label11.Text);
+                        sw.WriteLine("-----------------Message-------------------");
+                        sw.WriteLine(richTextBox1.Text);
+                        sw.WriteLine("-------------------------------------------");
+                        sw.Close();
                     }
-                   
-                }
-                
-                    
 
 
             }

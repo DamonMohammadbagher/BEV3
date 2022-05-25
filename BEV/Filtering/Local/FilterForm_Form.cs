@@ -175,7 +175,6 @@ namespace BEV
                 Filtering_TempBinding_Local_3.DataSource = TempTable_For_Tab3;
                 Filtering_TempBinding_Local_3_1.DataSource = Master_Value.Reloading_EventsID.table_;
                 
-               // dataGridView2.DataSource = Filtering_TempBinding_Local_2;
 
                 dataGridView5.DataSource = Filtering_TempBinding_Local_3_1;
                 dataGridView5.Refresh();
@@ -234,69 +233,7 @@ namespace BEV
         private void button3_Click(object sender, EventArgs e)
         {
             
-            //DataView view = (DataView)dataGrid1.DataSource;
-
-            //// Set the filter to display only those rows that were modified.
-            //view.RowStateFilter = DataViewRowState.ModifiedCurrent;
-
-            //// Change the value of the CompanyName column for each modified row.
-            //foreach (DataRowView rowView in view)
-            //{
-            //    Console.WriteLine(rowView.Row[2]);
-            //}
-
-
-
-            //try
-            //{
-            //    int _i = Filtering_TempBinding_Local_1.Count;
-            //    //Array_to_Save_1 = new object[_i];
-            //    System.Data.DataRowView g;
-            //    for (int i = 0; i <= _i; i++)
-            //    {
-            //        //                    Filtering_TempBinding_Local_1.CopyTo(Array_to_Save_1, i);
-            //        //      g = ((System.Data.DataRowView)Filtering_TempBinding_Local_1.List[i]);
-            //        g = ((System.Data.DataRowView)Master_Value.MasterValueClass.LocalBindingSource.List[i]);
-            //        MessageBox.Show(g.Row[2].ToString());
-
-
-            //    }
-            //}
-            //catch (Exception err)
-            //{
-
-
-            //}
-            
-
-          //  BindingSource f = new BindingSource();
-            
-          //  System.Collections.ArrayList fruits = new System.Collections.ArrayList();
-            //fruits.Add("apple");
-            //fruits.Add("mango");
-
-  //          IEnumerable<EventLogRecord> query =
-//                fruits.Cast<EventLogRecord>().Select(fruit => fruit);
-            //IEnumerable<EventLogRecord> query =
-            //                Filtering_TempBinding_Local_1.List.Cast<EventLogRecord>().Select(Filtering_TempBinding_Local_1.List[ => fruit);
-            
-            //foreach (EventLogRecord fruit in query)
-            //    Console.WriteLine(fruit.RecordId);
-
-            // This code produces the following output:
-            //
-            // apple
-            // mango
-
           
-            
-            
-           //// System.IO.FileInfo f = new System.IO.FileInfo("test.txt");
-           ////// System.IO.StreamWriter ff = new System.IO.StreamWriter(
-           //// foreach (string item in Array_to_Save_1)
-           //// {
-
-           //// }
         }
 
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -363,9 +300,7 @@ namespace BEV
                 if (Current_Logname.ToUpper() == "SECURITY")
                 {
                     int _Get_Set_EventID = Convert.ToInt32(((System.Data.DataRowView)Filtering_TempBinding_Local_3_1.List[dataGridView5.CurrentRow.Index]).Row[0]);
-                    // int _Get_Set_LevelID = Convert.ToInt32(((System.Data.DataRowView)Filtering_TempBinding_Local_3_1.List[dataGridView5.CurrentRow.Index]).Row[1]);
                     string Temps = "EventID = " + _Get_Set_EventID.ToString();
-                    // string Temps = "(EventID = " +  _Get_Set_EventID.ToString() + " )" + " AND " + "( Level = " + _Get_Set_LevelID + " )";
                     Filtering_TempBinding_Local_3.Filter = Temps;
                     dataGridView4.DataSource = Filtering_TempBinding_Local_3;
                     dataGridView4.Refresh();
@@ -402,9 +337,7 @@ namespace BEV
                 if (Current_Logname.ToUpper() == "SECURITY")
                 {
                     int _Get_Set_EventID = Convert.ToInt32(((System.Data.DataRowView)Filtering_TempBinding_Local_3_1.List[e.RowIndex]).Row[0]);
-                    // int _Get_Set_LevelID = Convert.ToInt32(((System.Data.DataRowView)Filtering_TempBinding_Local_3_1.List[e.RowIndex]).Row[1]);                
                     string Temps = "EventID = " + _Get_Set_EventID.ToString();
-                    // string Temps = "(EventID = " + _Get_Set_EventID.ToString() + " )" + " AND " + "( Level = " + _Get_Set_LevelID + " )";
                     Filtering_TempBinding_Local_3.Filter = Temps;
                     dataGridView4.DataSource = Filtering_TempBinding_Local_3;
                     dataGridView4.Refresh();
@@ -458,7 +391,6 @@ namespace BEV
         private void dataGridView5_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
             string _Get_Set_EventID_Tooltip = Convert.ToString(((System.Data.DataRowView)Filtering_TempBinding_Local_3_1.List[e.RowIndex]).Row[3]);
-            //textBox4.Text = _Get_Set_EventID_Tooltip;
             richTextBox1.Text = _Get_Set_EventID_Tooltip;
         }
 
@@ -471,10 +403,6 @@ namespace BEV
                 try
                 {
 
-                    //int _Get_Set_EventIndex = Convert.ToInt32(((System.Data.DataRowView)Filtering_TempBinding_Local_1.List[e.RowIndex]).Row[0]);
-                    //CastObject = (EventRecord)Master_Value.MasterValueClass.LocalBindingSource[_Get_Set_EventIndex-1];
-                    //string msg = CastObject.FormatDescription();
-                    //richTextBox_TypeMsg.Text = msg;
                     richTextBox_TypeMsg.Text = "";
                     richTextBox_TypeMsg.Text = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
 
