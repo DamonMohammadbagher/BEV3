@@ -1,12 +1,12 @@
-# BEV3
-BasicEventViewer (BEV v3.0)
+# BEV3 `(v3.0)`
+BasicEventViewer BEV3 
 
  Basic Event Viewer v3.0 For Windows Vista and Windows Server 2008 , .NET Framework 3.5 and in may 2022 Updated for ver (4.5) , Published by Damon Mohammadbagher.
  
  Note: I Created this code in 2009 & in May 2022 Updated by me for Work with Win7/Win10 etc (working with .NetFramework 4.5),
  also Some Security Features Like Working with "ETWProcessMon2/ETWPM2Monitor2/Sysmon Logs & MITRE ATT&CK" will add this Source Code soon! ;)
  
- this code will useful for Windows Admins also All Blue teamers too.
+ this code will useful for Windows Admins also All Blue Teamers too.
  
  this code still has some problem for loading Large Event log records like 400,000 records etc , time to loading is very slow (not fast) for these large records
  so i need to work on this for better performance , with new codes and i will update source codes soon for this fix this problem also i will add
