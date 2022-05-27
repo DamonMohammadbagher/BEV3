@@ -12,7 +12,10 @@ BasicEventViewer BEV3
  so i need to work on this for better performance , with new codes and i will update source codes soon for fix this problem also i will add
  new security features to the source code too.
        
- ### BEV3 v3.0 , Filtering
+### BEV v4.0 , new Search via Mitre Attack items for Defenders. 
+   ![](https://github.com/DamonMohammadbagher/BEV3/blob/main/Images/BEV4New.png)
+   
+### BEV3 v3.0 , Filtering
    ![](https://github.com/DamonMohammadbagher/BEV3/blob/main/Images/BEV5.png)
        
 ### BEV3 v3.0 , Event Logs
