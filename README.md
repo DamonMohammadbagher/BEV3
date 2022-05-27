@@ -10,7 +10,7 @@ BasicEventViewer BEV3
  
  this code still has some problem for loading Large Event log records like 400,000 records etc , time to loading is very slow (not fast) for these large records
  so i need to work on this for better performance , with new codes and i will update source codes soon for fix this problem also i will add
- new security features to the source code too.
+ new security features to the source code (BEV v4.0).
        
 ### BEV v4.0 , new Search via Mitre Attack items for Defenders. 
    ![](https://github.com/DamonMohammadbagher/BEV3/blob/main/Images/BEV4New.png)
