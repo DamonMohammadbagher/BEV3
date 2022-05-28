@@ -33,16 +33,28 @@ namespace BEV
         { 
             try
             {
-                label1.Update();
-                label2.Update();
-                Thread.Sleep(3);
-                BGW_RemoteEvt_View = new BackgroundWorker();
-                BGW_RemoteEvt_View.DoWork += new DoWorkEventHandler(BGW_RemoteEvt_View_DoWork);
-                BGW_RemoteEvt_View.ProgressChanged += new ProgressChangedEventHandler(BGW_RemoteEvt_View_ProgressChanged);
-                BGW_RemoteEvt_View.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BGW_RemoteEvt_View_RunWorkerCompleted);
-                BGW_RemoteEvt_View.WorkerReportsProgress = true;
-                BGW_RemoteEvt_View.WorkerSupportsCancellation = true;
-                BGW_RemoteEvt_View.RunWorkerAsync();
+
+                ThreadStart T_Core1_Search1 = new ThreadStart(delegate
+                {
+                    label1.Update();
+                    label2.Update();
+                    Thread.Sleep(3);
+                    BGW_RemoteEvt_View = new BackgroundWorker();
+                    BGW_RemoteEvt_View.DoWork += new DoWorkEventHandler(BGW_RemoteEvt_View_DoWork);
+                    BGW_RemoteEvt_View.ProgressChanged += new ProgressChangedEventHandler(BGW_RemoteEvt_View_ProgressChanged);
+                    BGW_RemoteEvt_View.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BGW_RemoteEvt_View_RunWorkerCompleted);
+                    BGW_RemoteEvt_View.WorkerReportsProgress = true;
+                    BGW_RemoteEvt_View.WorkerSupportsCancellation = true;
+                    BGW_RemoteEvt_View.RunWorkerAsync();
+                });
+
+                Thread _T8__CoreScanThread = new Thread(T_Core1_Search1);
+                _T8__CoreScanThread.Priority = ThreadPriority.Highest;
+                _T8__CoreScanThread.Start();
+
+
+
+               
             }
             catch (Exception err)
             {
