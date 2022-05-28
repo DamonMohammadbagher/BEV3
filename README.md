@@ -13,7 +13,10 @@ BasicEventViewer BEV3
  new security features to the source code (BEV v4.0).
        
 ### BEV v4.0 , new Search via Mitre Attack items for Defenders. (Loading yaml files for Search Sysmon Events for Mitre-Attack Techniques) 
-   ![](https://github.com/DamonMohammadbagher/BEV3/blob/main/Images/BEV4New.png)
+   ![](https://github.com/DamonMohammadbagher/BEV3/blob/main/Images/MITREATTACK.png)
+   
+### BEV v4.0 , new Search via Mitre Attack items for Defenders. (search history in Sysmon Events for Mitre-Attack Techniques) 
+   ![](https://github.com/DamonMohammadbagher/BEV3/blob/main/Images/MITREATTACK2.png)   
    
 ### BEV3 v3.0 , Filtering
    ![](https://github.com/DamonMohammadbagher/BEV3/blob/main/Images/BEV5.png)
