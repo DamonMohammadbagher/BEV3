@@ -12,6 +12,8 @@ BasicEventViewer BEV3
  so i need to work on this for better performance , with new codes and i will update source codes soon for fix this problem also i will add
  new security features to the source code (BEV v4.0).
  
+ Video for BEV4: https://www.youtube.com/watch?v=imU82TApG2k
+ 
  md5 info: 
       
        28495a37aa655f78e86ba4442191902b => BEV.exe [v3.0.77.22] 31,May,2022
