@@ -7985,10 +7985,10 @@ endoffile
                 column_Remoting.ColumnName = "Message";
                 table_Remoting.Columns.Add(column_Remoting);
 
-                column_Local = new DataColumn();
-                column_Local.DataType = Type.GetType("System.String");
-                column_Local.ColumnName = "EventTime";
-                table_Local.Columns.Add(column_Remoting);
+                column_Remoting = new DataColumn();
+                column_Remoting.DataType = Type.GetType("System.String");
+                column_Remoting.ColumnName = "EventTime";
+                table_Remoting.Columns.Add(column_Remoting);
             }
             catch (Exception err)
             {
