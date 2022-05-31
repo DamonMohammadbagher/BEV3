@@ -21,6 +21,7 @@ namespace BEV
         public Thread _Thread;
         Master_Value.MasterValueClass MObj = new BEV.Master_Value.MasterValueClass();
         string Temps1, Temps2;
+        public bool IsFilteredByDateTime = false;
 
         public WaitForm()
         {
@@ -33,28 +34,15 @@ namespace BEV
         { 
             try
             {
-
-                ThreadStart T_Core1_Search1 = new ThreadStart(delegate
-                {
-                    label1.Update();
-                    label2.Update();
-                    Thread.Sleep(3);
-                    BGW_RemoteEvt_View = new BackgroundWorker();
-                    BGW_RemoteEvt_View.DoWork += new DoWorkEventHandler(BGW_RemoteEvt_View_DoWork);
-                    BGW_RemoteEvt_View.ProgressChanged += new ProgressChangedEventHandler(BGW_RemoteEvt_View_ProgressChanged);
-                    BGW_RemoteEvt_View.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BGW_RemoteEvt_View_RunWorkerCompleted);
-                    BGW_RemoteEvt_View.WorkerReportsProgress = true;
-                    BGW_RemoteEvt_View.WorkerSupportsCancellation = true;
-                    BGW_RemoteEvt_View.RunWorkerAsync();
-                });
-
-                Thread _T8__CoreScanThread = new Thread(T_Core1_Search1);
-                _T8__CoreScanThread.Priority = ThreadPriority.Highest;
-                _T8__CoreScanThread.Start();
-
-
-
-               
+                
+                Thread.Sleep(3);
+                BGW_RemoteEvt_View = new BackgroundWorker();
+                BGW_RemoteEvt_View.DoWork += new DoWorkEventHandler(BGW_RemoteEvt_View_DoWork);
+                BGW_RemoteEvt_View.ProgressChanged += new ProgressChangedEventHandler(BGW_RemoteEvt_View_ProgressChanged);
+                BGW_RemoteEvt_View.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BGW_RemoteEvt_View_RunWorkerCompleted);
+                BGW_RemoteEvt_View.WorkerReportsProgress = true;
+                BGW_RemoteEvt_View.WorkerSupportsCancellation = true;
+                BGW_RemoteEvt_View.RunWorkerAsync();
             }
             catch (Exception err)
             {
@@ -93,8 +81,18 @@ namespace BEV
 
                         try
                         {
+                            if (!IsFilteredByDateTime)
+                            {
+                                bgw.ReportProgress(0, (object)eventInstance);
+                            }
+                            else
+                            {
+                                if (eventInstance.TimeCreated.Value.Date >= dateTimePicker1.Value.Date &&
+                                    eventInstance.TimeCreated.Value.Date <= dateTimePicker2.Value.Date)
+                                    bgw.ReportProgress(0, (object)eventInstance);
+                            }
 
-                            bgw.ReportProgress(0, (object)eventInstance);
+                           // bgw.ReportProgress(0, (object)eventInstance);
                             
 
                         }
@@ -145,9 +143,7 @@ namespace BEV
 
                 try
                 {
-                    label1.Update();
-                    label2.Update();
-
+                     
                     lock (MObj)
                     {
                         
@@ -186,7 +182,8 @@ namespace BEV
         public void CopyBindingSource()
         {            
             Master_Value.MasterValueClass.RemoteBindingSource = TempBinding;
-            _Thread.Abort();
+            this.Close();
+            
         }
 
         void BGW_RemoteEvt_View_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -194,10 +191,9 @@ namespace BEV
            
             try
             {
-                _Thread = new Thread(new ThreadStart(CopyBindingSource));
-                _Thread.Name = "TT-110";
-                _Thread.Start();         
-                this.Close();
+                CopyBindingSource();
+                    
+               
             }
             catch (Exception err)
             {
@@ -207,19 +203,53 @@ namespace BEV
 
 
 
-        }        
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                IsFilteredByDateTime = true;
+                this.Text = "Loading , Please Wait...";
+                toolStripStatusLabel1.Text = "Connecting to Remote System";
+                toolStripStatusLabel2.Text = "Event Name: " + Master_Value.MasterValueClass.ActiveNode + " , Events Count: "
+                    + Master_Value.MasterValueClass.ActiveNode_Count + " Records";
+ 
+                Master_Value.MasterValueClass.Settable_RemoteTable();
+                Thread.Sleep(1500);
+                this.Update();
+                _Reload_Init();
+
+            }
+            catch (Exception err)
+            {
+
+
+            }
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            IsFilteredByDateTime = false;
+            this.Text = "Loading , Please Wait...";
+            toolStripStatusLabel1.Text = "Connecting to Remote System";
+            toolStripStatusLabel2.Text = "Event Name: " + Master_Value.MasterValueClass.ActiveNode + " , Events Count: "
+                + Master_Value.MasterValueClass.ActiveNode_Count + " Records";
+           
+            Master_Value.MasterValueClass.Settable_RemoteTable();
+            Thread.Sleep(1500);
+            this.Update();
+            _Reload_Init();
+        }
 
         private void WaitForm_Load(object sender, EventArgs e)
         {
             try
             {
-                label1.Text = "Connecting to " + Master_Value.MasterValueClass.Remote_Host_Name + " with User ( " + Master_Value.MasterValueClass.Remote_Host_UserName + " )";
-                label2.Text = "Event Name: " + Master_Value.MasterValueClass.ActiveNode + " , Events Count: " + Master_Value.MasterValueClass.ActiveNode_Count + " Records";
-                label1.Update();
-                label2.Update();
+               
                 Thread.Sleep(3);
                 this.Update();
-                _Reload_Init();           
+                //_Reload_Init();           
 
             }
             catch (Exception err)

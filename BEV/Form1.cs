@@ -11,7 +11,6 @@ using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Threading;
 
-
 namespace BEV
 {
     public partial class Form1 : Form
@@ -20,7 +19,7 @@ namespace BEV
         /// Basic Event Viewer v3.0 For Windows Vista and Windows Server 2008 , .NET Framework 3.5 and Updated for ver (4.5) , Published by Damon Mohammadbagher.
         /// 
         /// Note: I Created this code in 2009 & in May 2022 Updated by me for Work with Win7/Win10/11 etc (working with .NetFramework 4.5),
-        /// also Some Security Features Like Working with ETWProcessMon2/ETWPM2Monitor2/Sysmon Logs will add this Source Code soon! ;)
+        /// also Some Security Features Like Working with ETWProcessMon2/ETWPM2Monitor2/Sysmon Logs & MITRE ATT&CK will add this Source Code soon! ;)
         /// 
         /// this code still has some problem for loading Large Event log records like 400,000 records etc , time to loading is very slow for these large records
         /// so i need to work on this for better performance , with new codes and i will update source codes soon for this fix this problem also i will add
@@ -33,7 +32,7 @@ namespace BEV
         private bool init = false;
         private bool init2 = false;
         public static bool Isclosing = false;
-        MitreAttackClass mitre = new MitreAttackClass();
+
         public void Refresh_Remote_TreeNodes() 
         {
             try
@@ -113,10 +112,7 @@ namespace BEV
 
                 dataGridView2.Update();
                 dataGridView2.Refresh();
-                dataGridView1.Visible = true;
-                dataGridView1.Show();
-                dataGridView2.Visible = true;
-                dataGridView2.Show();
+               
 
                 groupBox6.Text = Master_Value.MasterValueClass.Local_Description_Groupbox6;
 
@@ -1339,26 +1335,24 @@ namespace BEV
         {
             try
             {
+                Isclosing = true;
+                Thread.Sleep(1000);
+                WaitForm F1 = new WaitForm();
+                WaitForm2 F2 = new WaitForm2();
+                
+                if (F1._Thread.IsAlive)
+                    F1._Thread.Abort();
 
-           
-            Isclosing = true;
-            Thread.Sleep(1000);
-            WaitForm F1 = new WaitForm();
-            WaitForm2 F2 = new WaitForm2();
-
-            if (F1._Thread.IsAlive)
-                F1._Thread.Abort();
-
-            if (F2._Thread.IsAlive)
-                F2._Thread.Abort();
+                if (F2._Thread.IsAlive)
+                    F1._Thread.Abort();
             }
             catch (Exception)
             {
 
                
             }
+           
         }
-
 
 
         #region  rem for this version            
@@ -1402,8 +1396,6 @@ namespace BEV
         // for this version 
         #endregion
 
-        
 
-       
     }
 }

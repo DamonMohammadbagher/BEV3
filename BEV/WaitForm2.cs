@@ -19,7 +19,7 @@ namespace BEV
         private static BindingSource TempBinding = new BindingSource();
         private EventLogQuery eventsQuery;
         private EventLogReader logReader;
-        
+        public bool IsFilteredByDateTime = false;
         public  Thread _Thread;
         private static EventRecord CastObject;
         Master_Value.MasterValueClass MObj = new BEV.Master_Value.MasterValueClass();
@@ -28,28 +28,16 @@ namespace BEV
         {
             try
             {
-
-                ThreadStart T_Core1_Search1 = new ThreadStart(delegate
-                {
-                    label1.Update();
-                    label2.Update();
-                    Thread.Sleep(3);
-
-                    BGW_LocalEvt_View = new BackgroundWorker();
-                    BGW_LocalEvt_View.DoWork += new DoWorkEventHandler(BGW_LocalEvt_View_DoWork);
-                    BGW_LocalEvt_View.ProgressChanged += new ProgressChangedEventHandler(BGW_LocalEvt_View_ProgressChanged);
-                    BGW_LocalEvt_View.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BGW_LocalEvt_View_RunWorkerCompleted);
-                    BGW_LocalEvt_View.WorkerReportsProgress = true;
-                    BGW_LocalEvt_View.WorkerSupportsCancellation = true;
-                    BGW_LocalEvt_View.RunWorkerAsync();
-                });
-
-                Thread _T8__CoreScanThread = new Thread(T_Core1_Search1);
-                _T8__CoreScanThread.Priority = ThreadPriority.Highest;
-                _T8__CoreScanThread.Start();
-
-
-              
+               
+                Thread.Sleep(3);
+                
+                BGW_LocalEvt_View = new BackgroundWorker();
+                BGW_LocalEvt_View.DoWork += new DoWorkEventHandler(BGW_LocalEvt_View_DoWork);
+                BGW_LocalEvt_View.ProgressChanged += new ProgressChangedEventHandler(BGW_LocalEvt_View_ProgressChanged);
+                BGW_LocalEvt_View.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BGW_LocalEvt_View_RunWorkerCompleted);
+                BGW_LocalEvt_View.WorkerReportsProgress = true;
+                BGW_LocalEvt_View.WorkerSupportsCancellation = true;
+                BGW_LocalEvt_View.RunWorkerAsync();
 
             }
             catch (Exception  err)
@@ -83,8 +71,8 @@ namespace BEV
                 {
 
                     this.Update();
-                    label1.Update();
-                    label2.Update();
+                    //label1.Update();
+                    //label2.Update();
 
                     
                     TempBinding.Add((EventRecord)e.UserState);
@@ -123,20 +111,18 @@ namespace BEV
         {
             
             Master_Value.MasterValueClass.LocalBindingSource = TempBinding;
-            _Thread.Abort();
-            
+            this.Close();
+           
+
         }
 
         void BGW_LocalEvt_View_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             try
             {
-
-                _Thread = new Thread(new ThreadStart(CopyBindingSource));
-                _Thread.Name = "TT-110";
-                _Thread.Start();     
-             
-                this.Close(); 
+                CopyBindingSource();
+                
+              
             }
             catch (Exception err)
             {
@@ -169,8 +155,18 @@ namespace BEV
 
                     try
                     {
-                      
-                        bgw.ReportProgress(0, (object)eventInstance);
+                        if (!IsFilteredByDateTime)
+                        {
+                            bgw.ReportProgress(0, (object)eventInstance);
+                        }
+                        else
+                        {
+                            if (eventInstance.TimeCreated.Value.Date >= dateTimePicker1.Value.Date && 
+                                eventInstance.TimeCreated.Value.Date <= dateTimePicker2.Value.Date)
+                                bgw.ReportProgress(0, (object)eventInstance);
+                        }
+
+                       // bgw.ReportProgress(0, (object)eventInstance);
                       
                     }
                     catch (EventLogException eeee)
@@ -205,14 +201,14 @@ namespace BEV
             try
             {
 
-                label1.Text = "Connecting to Local System" ;
-                label2.Text = "Event Name: " + Master_Value.MasterValueClass.ActiveNode + " , Events Count: " 
-                    + Master_Value.MasterValueClass.ActiveNode_Count + " Records";
-                label1.Update();
-                label2.Update();
+                //label1.Text = "Connecting to Local System" ;
+                //label2.Text = "Event Name: " + Master_Value.MasterValueClass.ActiveNode + " , Events Count: " 
+                //    + Master_Value.MasterValueClass.ActiveNode_Count + " Records";
+                //label1.Update();
+                //label2.Update();
                 Thread.Sleep(3);
                 this.Update();
-                _Reload_Init();
+                //_Reload_Init();
 
             }
             catch (Exception err)
@@ -225,6 +221,55 @@ namespace BEV
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                IsFilteredByDateTime = true;
+                this.Text = "Loading , Please Wait...";
+                toolStripStatusLabel1.Text = "Connecting to Local System";
+                toolStripStatusLabel2.Text = "Event Name: " + Master_Value.MasterValueClass.ActiveNode + " , Events Count: "
+                    + Master_Value.MasterValueClass.ActiveNode_Count + " Records";
+
+                Master_Value.MasterValueClass.Settable_LocalTable();
+
+                Thread.Sleep(1500);
+                this.Update();
+                _Reload_Init();
+
+            }
+            catch (Exception err)
+            {
+
+
+            }
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                IsFilteredByDateTime = false;
+                this.Text = "Loading , Please Wait...";
+                toolStripStatusLabel1.Text = "Connecting to Local System";
+                toolStripStatusLabel2.Text = "Event Name: " + Master_Value.MasterValueClass.ActiveNode + " , Events Count: "
+                    + Master_Value.MasterValueClass.ActiveNode_Count + " Records";
+
+                Master_Value.MasterValueClass.Settable_LocalTable();
+
+                statusStrip1.Update();
+                Thread.Sleep(1500);
+                this.Update();
+                _Reload_Init();
+
+            }
+            catch (Exception err)
+            {
+
+
+            }
         }
 
         private void label2_Click(object sender, EventArgs e)
