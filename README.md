@@ -11,6 +11,10 @@ BasicEventViewer BEV3
  this code still has some problem for loading Large Event log records like 400,000 records etc , time to loading is very slow (not fast) for these large records
  so i need to work on this for better performance , with new codes and i will update source codes soon for fix this problem also i will add
  new security features to the source code (BEV v4.0).
+ 
+ md5 info: 
+      
+       28495a37aa655f78e86ba4442191902b => BEV.exe [v3.0.77.22] 31,May,2022
        
 ### BEV v4.0 , new Search via Mitre Attack items for Defenders. (Loading yaml files for Search Sysmon Events for Mitre-Attack Techniques) 
    ![](https://github.com/DamonMohammadbagher/BEV3/blob/main/Images/MITREATTACK.png)
