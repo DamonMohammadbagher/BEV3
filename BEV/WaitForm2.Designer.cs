@@ -149,7 +149,7 @@
             this.Name = "WaitForm2";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Loading Events";
             this.Load += new System.EventHandler(this.WaitForm2_Load);
             this.statusStrip1.ResumeLayout(false);

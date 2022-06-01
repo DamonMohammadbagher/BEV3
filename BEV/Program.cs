@@ -30,27 +30,18 @@ namespace BEV
                     try
                     {
 
-                        Process MyProcess = Process.GetCurrentProcess();
-                        MyProcess.ProcessorAffinity = (IntPtr)1;
+                        //Process MyProcess = Process.GetCurrentProcess();
+                        //MyProcess.ProcessorAffinity = (IntPtr)1;
                     }
                     catch (Exception err)
                     {
 
                     }
 
-                    //Application.EnableVisualStyles();
-                    //Application.SetCompatibleTextRenderingDefault(false);
-                    //Application.Run(new Form1());
-                    ThreadStart __MainThread = new ThreadStart(delegate
-                    {
-                        Application.EnableVisualStyles();
-                        Application.SetCompatibleTextRenderingDefault(false);
-                        Application.Run(new Form1());
-                    });
-
-                    Thread _MainThreadRun = new Thread(__MainThread);
-                    _MainThreadRun.Priority = ThreadPriority.AboveNormal;
-                    _MainThreadRun.Start();
+                    Application.EnableVisualStyles();
+                    Application.SetCompatibleTextRenderingDefault(false);
+                    Application.Run(new Form1());
+                    
                 }
 
             }

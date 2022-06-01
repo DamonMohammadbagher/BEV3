@@ -10,6 +10,8 @@ using System.Security;
 using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
+
 
 namespace BEV
 {
@@ -48,38 +50,41 @@ namespace BEV
             }
         }       
 
-        public void Refresh_Remote_DataGrid_3and4() 
+        public async Task  Refresh_Remote_DataGrid_3and4() 
         {
-            try
+            await Task.Run(() =>
             {
-
-                dataGridView4.DataSource = Master_Value.MasterValueClass.RemoteBindingSource;
-                //dataGridView3.DataSource = Master_Value.MasterValueClass.table_Remoting;
-               
-                TempBinding_Remote.DataSource = Master_Value.MasterValueClass.table_Remoting;
-                dataGridView3.DataSource = TempBinding_Remote;
-                
-                dataGridView3.Update();
-                dataGridView3.Refresh();
-
-                dataGridView4.Update();
-                dataGridView4.Refresh();
-
-                groupBox6.Text = Master_Value.MasterValueClass.Remote_Description_Groupbox6;
-                
-                // for adding properties to Array fot tab 3 (Remote)
-                Master_Value.MasterValueClass.PropertiesList = new string[dataGridView4.Columns.Count];
-                for (int i = 0; i < dataGridView4.Columns.Count; i++)
+                try
                 {
-                    Master_Value.MasterValueClass.PropertiesList[i] = dataGridView4.Columns[i].Name;
+
+                    dataGridView4.DataSource = Master_Value.MasterValueClass.RemoteBindingSource;
+                    //dataGridView3.DataSource = Master_Value.MasterValueClass.table_Remoting;
+
+                    TempBinding_Remote.DataSource = Master_Value.MasterValueClass.table_Remoting;
+                    dataGridView3.DataSource = TempBinding_Remote;
+
+                    dataGridView3.Update();
+                    dataGridView3.Refresh();
+
+                    dataGridView4.Update();
+                    dataGridView4.Refresh();
+
+                    groupBox6.Text = Master_Value.MasterValueClass.Remote_Description_Groupbox6;
+
+                    //// for adding properties to Array fot tab 3 (Remote)
+                    //Master_Value.MasterValueClass.PropertiesList = new string[dataGridView4.Columns.Count];
+                    //for (int i = 0; i < dataGridView4.Columns.Count; i++)
+                    //{
+                    //    Master_Value.MasterValueClass.PropertiesList[i] = dataGridView4.Columns[i].Name;
+                    //}
+
                 }
+                catch (Exception err)
+                {
 
-            }
-            catch (Exception err )
-            {
-
-                MessageBox.Show(null, "Loading Error " + "\n" + err.Message, "BEV 3.0", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                    MessageBox.Show(null, "Loading Error " + "\n" + err.Message, "BEV 3.0", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            });
         }
 
         public void Refresh_Local_TreeNodes() 
@@ -97,38 +102,41 @@ namespace BEV
             }
         }
 
-        public void Refresh_Local_DataGrid1and2()
+        public async Task Refresh_Local_DataGrid1and2()
         {
-            try
+            await Task.Run(() =>
             {
-                
-                dataGridView1.DataSource = Master_Value.MasterValueClass.LocalBindingSource;                 
-                
-                TempBinding_Local.DataSource = Master_Value.MasterValueClass.table_Local;
-                dataGridView2.DataSource = TempBinding_Local.DataSource;
-
-                dataGridView1.Update();
-                dataGridView1.Refresh();
-
-                dataGridView2.Update();
-                dataGridView2.Refresh();
-               
-
-                groupBox6.Text = Master_Value.MasterValueClass.Local_Description_Groupbox6;
-
-                // for adding properties to Array fot tab 3 (Local)
-                Master_Value.MasterValueClass.PropertiesList = new string[dataGridView1.Columns.Count];
-                for (int i = 0; i < dataGridView1.Columns.Count; i++)
+                try
                 {
-                    Master_Value.MasterValueClass.PropertiesList[i] = dataGridView1.Columns[i].Name;
+
+                    dataGridView1.DataSource = Master_Value.MasterValueClass.LocalBindingSource;
+
+                    TempBinding_Local.DataSource = Master_Value.MasterValueClass.table_Local;
+                    dataGridView2.DataSource = TempBinding_Local.DataSource;
+
+                    dataGridView1.Update();
+                    dataGridView1.Refresh();
+
+                    dataGridView2.Update();
+                    dataGridView2.Refresh();
+
+
+                    groupBox6.Text = Master_Value.MasterValueClass.Local_Description_Groupbox6;
+
+                    // for adding properties to Array fot tab 3 (Local)
+                    //Master_Value.MasterValueClass.PropertiesList = new string[dataGridView1.Columns.Count];
+                    //for (int i = 0; i < dataGridView1.Columns.Count; i++)
+                    //{
+                    //    Master_Value.MasterValueClass.PropertiesList[i] = dataGridView1.Columns[i].Name;
+                    //}
+
                 }
+                catch (Exception err)
+                {
 
-            }
-            catch (Exception err)
-            {
-
-                MessageBox.Show(null, "Loading Error " + "\n" + err.Message, "BEV 3.0", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                    MessageBox.Show(null, "Loading Error " + "\n" + err.Message, "BEV 3.0", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            });
         }
 
         public Form1()
@@ -209,39 +217,10 @@ namespace BEV
          
         }
 
-        private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
-        {           
-            try
-            {
+        private async void reloadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
 
-                tabControl1.SelectedIndex = 1;
-                if (Master_Value.MasterValueClass.Remote_Host_Name != null)
-                {
-                    Master_Value.MasterValueClass.RemoteBindingSource.DataSource = typeof(System.Diagnostics.Eventing.Reader.EventLogRecord);
-                    Master_Value.MasterValueClass.RemoteBindingSource.Clear();
-                    Master_Value.MasterValueClass.Settable_RemoteTable();
-                    Master_Value.MasterValueClass.table_Remoting.Clear();
-
-                    dataGridView3.DataSource = null;
-                    dataGridView4.DataSource = null;
-                    WaitForm WForm = new WaitForm();
-                    WForm.ShowDialog();
-                    Master_Value.MasterValueClass.Remote_Description_Groupbox6 = "Event Messages for Event Name (" + Master_Value.MasterValueClass.ActiveNode + ") " + " , Remote System Name : " + Master_Value.MasterValueClass.Remote_Host_Name;
-                    Refresh_Remote_DataGrid_3and4();
-                }
-                else if (Master_Value.MasterValueClass.Remote_Host_Name == null) 
-                {
-
-                }
-
-
-            }
-            catch (Exception err)
-            {
-
-                MessageBox.Show(null, "Loading Error " + "\n" + err.Message, "BEV 3.0", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-           
+            await _Reload_Remote();
         }
         
         private void Reload_Remote_Connection_Click(object sender, EventArgs e)
@@ -615,37 +594,37 @@ namespace BEV
             this.Close();
         }
 
-        private void relaodToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void relaodToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            await _Reload_Local();
           
-            try
-            {
-                tabControl1.SelectedIndex = 0;
+            //try
+            //{
+            //    tabControl1.SelectedIndex = 0;
                
-                //Master_Value.MasterValueClass.LocalBindingSource.DataSource = typeof(System.Diagnostics.Eventing.Reader.EventLogRecord);
+            //    //Master_Value.MasterValueClass.LocalBindingSource.DataSource = typeof(System.Diagnostics.Eventing.Reader.EventLogRecord);
                 
-                Master_Value.MasterValueClass.LocalBindingSource.Clear();
-                Master_Value.MasterValueClass.Settable_LocalTable();
-                Master_Value.MasterValueClass.table_Local.Clear();
+            //    Master_Value.MasterValueClass.LocalBindingSource.Clear();
+            //    Master_Value.MasterValueClass.Settable_LocalTable();
+            //    Master_Value.MasterValueClass.table_Local.Clear();
                 
-                dataGridView1.DataSource = null;
-                dataGridView2.DataSource = null;
-                dataGridView2.Show();
-                dataGridView1.Show();
-                WaitForm2 WForm2 = new WaitForm2();
-                WForm2.ShowDialog();                
-                Master_Value.MasterValueClass.Local_Description_Groupbox6 = "Event Messages for Event Name (" + Master_Value.MasterValueClass.ActiveNode + ") " + " , Local System";
-                Refresh_Local_DataGrid1and2();
+            //    dataGridView1.DataSource = null;
+            //    dataGridView2.DataSource = null;
+            //    dataGridView2.Show();
+            //    dataGridView1.Show();
+            //    WaitForm2 WForm2 = new WaitForm2();
+            //    WForm2.ShowDialog();                
+            //    Master_Value.MasterValueClass.Local_Description_Groupbox6 = "Event Messages for Event Name (" + Master_Value.MasterValueClass.ActiveNode + ") " + " , Local System";
+            //    Refresh_Local_DataGrid1and2();
 
                
 
-            }
-            catch (Exception err)
-            {
+            //}
+            //catch (Exception err)
+            //{
 
 
-            }
+            //}
         }
 
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
@@ -856,37 +835,45 @@ namespace BEV
             }
         }
 
-        private void reloadToolStripMenuItem1_Click(object sender, EventArgs e)
+        public async Task _Reload_Local()
         {
-            try
+           await Task.Run(() =>
             {
-
-               
-                // Master_Value.MasterValueClass.LocalBindingSource.DataSource = typeof(System.Diagnostics.Eventing.Reader.EventLogRecord);
-                Master_Value.MasterValueClass.LocalBindingSource.Clear();
-                Master_Value.MasterValueClass.Settable_LocalTable();
-                Master_Value.MasterValueClass.table_Local.Clear();
-                
-                dataGridView1.DataSource = null;
-                dataGridView2.DataSource = null;
-                dataGridView1.Show();
-                dataGridView2.Show();
-                dataGridView1.Visible = true;
-                dataGridView2.Visible = true;
-                richTextBox1.Text = "";
-                WaitForm2 WForm2 = new WaitForm2();
-                WForm2.ShowDialog();
-                Master_Value.MasterValueClass.Local_Description_Groupbox6 = "Event Messages for Event Name (" + Master_Value.MasterValueClass.ActiveNode + ") "
-                    + " , Local System";
-                Refresh_Local_DataGrid1and2();
-                
-
-            }
-            catch (Exception err)
-            {
+                try
+                {
 
 
-            }
+                    // Master_Value.MasterValueClass.LocalBindingSource.DataSource = typeof(System.Diagnostics.Eventing.Reader.EventLogRecord);
+                    Master_Value.MasterValueClass.LocalBindingSource.Clear();
+                    Master_Value.MasterValueClass.Settable_LocalTable();
+                    Master_Value.MasterValueClass.table_Local.Clear();
+
+                    dataGridView1.DataSource = null;
+                    dataGridView2.DataSource = null;
+                    dataGridView1.Show();
+                    dataGridView2.Show();
+                    dataGridView1.Visible = true;
+                    dataGridView2.Visible = true;
+                    richTextBox1.Text = "";
+                    WaitForm2 WForm2 = new WaitForm2();
+                    WForm2.ShowDialog();
+                    Master_Value.MasterValueClass.Local_Description_Groupbox6 = "Event Messages for Event Name (" + Master_Value.MasterValueClass.ActiveNode + ") "
+                        + " , Local System";
+                  
+                }
+                catch (Exception err)
+                {
+
+
+                }
+            });
+
+            await Refresh_Local_DataGrid1and2();
+        }
+
+        private async void reloadToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            await _Reload_Local();
         }
 
         private void refreshToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -923,39 +910,48 @@ namespace BEV
             }
         }
 
-        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        public async Task _Reload_Remote()
         {
-            try
+            await Task.Run(() =>
             {
-
-
-                if (Master_Value.MasterValueClass.Remote_Host_Name != null)
-                {
-                    Master_Value.MasterValueClass.RemoteBindingSource.DataSource = typeof(System.Diagnostics.Eventing.Reader.EventLogRecord);
-                    Master_Value.MasterValueClass.RemoteBindingSource.Clear();
-                    Master_Value.MasterValueClass.Settable_RemoteTable();
-                    Master_Value.MasterValueClass.table_Remoting.Clear();
-
-                    dataGridView3.DataSource = null;
-                    dataGridView4.DataSource = null;
-                    WaitForm WForm = new WaitForm();
-                    WForm.ShowDialog();
-                    Master_Value.MasterValueClass.Remote_Description_Groupbox6 = "Event Messages for Event Name (" + Master_Value.MasterValueClass.ActiveNode + ") " + " , Remote System Name : " + Master_Value.MasterValueClass.Remote_Host_Name;
-                    Refresh_Remote_DataGrid_3and4();
-                }
-                else if (Master_Value.MasterValueClass.Remote_Host_Name == null) 
+                try
                 {
 
+                    if (Master_Value.MasterValueClass.Remote_Host_Name != null)
+                    {
+                        Master_Value.MasterValueClass.RemoteBindingSource.DataSource = typeof(System.Diagnostics.Eventing.Reader.EventLogRecord);
+                        Master_Value.MasterValueClass.RemoteBindingSource.Clear();
+                        Master_Value.MasterValueClass.Settable_RemoteTable();
+                        Master_Value.MasterValueClass.table_Remoting.Clear();
+
+                        dataGridView3.DataSource = null;
+                        dataGridView4.DataSource = null;
+                        //WaitForm WForm = new WaitForm();
+                        //WForm.ShowDialog();
+                        Master_Value.MasterValueClass.Remote_Description_Groupbox6 = "Event Messages for Event Name (" + Master_Value.MasterValueClass.ActiveNode + ") " + " , Remote System Name : " + Master_Value.MasterValueClass.Remote_Host_Name;
+                      
+                    }
+                    else if (Master_Value.MasterValueClass.Remote_Host_Name == null)
+                    {
+
+                    }
+
                 }
+                catch (Exception err)
+                {
 
+                    MessageBox.Show(null, "Loading Error " + "\n" + err.Message, "BEV 3.0", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            });
 
+            WaitForm WForm = new WaitForm();
+            WForm.ShowDialog();
+            await Refresh_Remote_DataGrid_3and4();
+        }
 
-            }
-            catch (Exception err)
-            {
-
-                MessageBox.Show(null, "Loading Error " + "\n" + err.Message, "BEV 3.0", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+        private async void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            await _Reload_Remote();
         }
 
         private void dataGridView1_RowEnter(object sender, DataGridViewCellEventArgs e)
@@ -1354,7 +1350,6 @@ namespace BEV
            
         }
 
-
         #region  rem for this version            
         // for this version 
         //private void vToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1395,7 +1390,5 @@ namespace BEV
 
         // for this version 
         #endregion
-
-
     }
 }
