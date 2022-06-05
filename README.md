@@ -12,12 +12,18 @@ BasicEventViewer BEV3
  so i need to work on this for better performance , with new codes and i will update source codes soon for fix this problem also i will add
  new security features to the source code (BEV v4.0).
  
- Video for BEV4: https://www.youtube.com/watch?v=imU82TApG2k
+ Video1 for BEV4: https://www.youtube.com/watch?v=imU82TApG2k
+ 
+ Video2 for BEV4: https://www.youtube.com/watch?v=Hera3z1T5mI
+ 
  
  md5 info: 
       
        e12f3a0e2de2ca069cf58fd3292328b2 => BEV.exe [v3.0.77.22] 01,Jun,2022
        
+### BEV v4.0 , Real-time Scan for Mitre-Attack Techniques for Defenders.  
+   ![](https://github.com/DamonMohammadbagher/BEV3/blob/main/Images/MItreRealTime2.png)
+   
 ### BEV v4.0 , new Search via Mitre Attack items for Defenders. (Loading yaml files for Search Sysmon Events for Mitre-Attack Techniques) 
    ![](https://github.com/DamonMohammadbagher/BEV3/blob/main/Images/MITREATTACK.png)
    
