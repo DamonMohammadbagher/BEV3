@@ -32,6 +32,9 @@ video link : https://youtu.be/MHfGIY2IyXE?t=414
 ### BEV v4.0 , Real-time Scan for Mitre-Attack Techniques for Defenders.  
    ![](https://github.com/DamonMohammadbagher/BEV3/blob/main/Images/MItreRealTime2.png)
    
+### BEV v4.0 , new Search via Powershell for Mitre Attack items for Defenders. (export results to html & csv files) 
+   ![](https://github.com/DamonMohammadbagher/BEV3/blob/main/Images/Powershell1.png)
+   
 ### BEV v4.0 , new Search via Mitre Attack items for Defenders. (Loading yaml files for Search Sysmon Events for Mitre-Attack Techniques) 
    ![](https://github.com/DamonMohammadbagher/BEV3/blob/main/Images/MITREATTACK.png)
    
